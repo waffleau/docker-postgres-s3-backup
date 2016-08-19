@@ -16,4 +16,4 @@ RUN mkdir -p /backups
 ADD docker-entrypoint.sh .
 ADD scripts .
 
-ENTRYPOINT ['./docker-entrypoint.sh']
+ENTRYPOINT ['docker-entrypoint.sh']
