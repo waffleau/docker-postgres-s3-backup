@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
-set -o pipefail
 
-echo "Creating dump of ${POSTGRES_DATABASE}"
+echo "Creating backup of database: ${POSTGRES_DB}"
 
 export PGPASSWORD=$POSTGRES_PASSWORD
-pg_dump -h $POSTGRES_DB -p $POSTGRES_PORT -d $POSTGRES_DB -U $POSTGRES_USER -f /backups/dump.sql | gzip > /backups/dump.sql.gz
+pg_dump -h $POSTGRES_HOST -p $POSTGRES_PORT -d $POSTGRES_DB -U $POSTGRES_USER -f /backups/dump.sql | gzip > /backups/dump.sql.gz
 
-echo "Uploading dump to ${S3_BUCKET}"
+echo "Uploading backup to S3 bucket: ${S3_BUCKET}/${S3_PREFIX}"
 
-cat /backups/dump.sql.gz | aws s3 cp - s3://$S3_BUCKET/$S3_PREFIX/$(date +"%Y-%m-%dT%H:%M:%SZ").sql.gz || exit 2
+export BACKUP_FILE=$(date +"%Y-%m-%d-T%H%M%SZ").sql.gz
+cat /backups/dump.sql.gz | aws s3 cp - s3://$S3_BUCKET/$S3_PREFIX/$BACKUP_FILE
 
-echo "SQL backup uploaded successfully"
+echo "Backup uploaded successfully: ${BACKUP_FILE}"
