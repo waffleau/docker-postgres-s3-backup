@@ -8,12 +8,8 @@ RUN \
   aws --version && \
   rm -rf /var/cache/apk/*
 
-RUN mkdir -p /app
 RUN mkdir -p /backups
 
-WORKDIR /app
-
 ADD docker-entrypoint.sh .
-ADD scripts scripts
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
