@@ -14,8 +14,5 @@ docker run \
     -e "POSTGRES_DB=<variable>"
     -e "POSTGRES_USER=<variable>"
     -e "POSTGRES_PASSWORD=<variable>"
-    -e "SCHEDULE=<variable>"
-    waffleau/docker-postgres-toolkit
+    waffleau/docker-postgres-s3-backup
 ````
-
-For scheduling options, check out: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
