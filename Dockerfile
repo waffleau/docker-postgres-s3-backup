@@ -10,6 +10,6 @@ RUN \
 
 RUN mkdir -p /backups
 
-ADD docker-entrypoint.sh .
+ADD docker-entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
