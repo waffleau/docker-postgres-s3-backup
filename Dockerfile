@@ -1,4 +1,5 @@
-FROM alpine:latest
+FROM alpine:3.4
+MAINTAINER matt.ellis@sudoseng.com
 
 RUN \
   apk add --update curl postgresql python unzip && \
@@ -10,7 +11,7 @@ RUN \
 
 RUN mkdir -p /backups
 
-ADD backup.sh .
-ADD docker-entrypoint.sh /entrypoint.sh
+COPY backup.sh .
+COPY docker-entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
